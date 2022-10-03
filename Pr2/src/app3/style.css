@@ -1,0 +1,9 @@
+.commands-block, .form-block, .sorted-block {
+    display: flex;
+    flex-direction: column;
+}
+form {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5%;
+}

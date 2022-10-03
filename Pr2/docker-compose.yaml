@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: database
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./databases:/docker-entrypoint-initdb.d
+      - db_volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+
+  php-apache:
+    build: ./src/pr1
+    ports:
+      - "80:80"
+    volumes:
+      - ./src/pr1:/var/www/html
+    links:
+      - db
+
+  app1:
+    build: .
+    container_name: app1
+    ports:
+      - 8888:80
+    volumes:
+      - ./src/app1:/var/www/html
+  app2:
+    build: .
+    container_name: app2
+    ports:
+       - 8889:80
+    volumes:
+       - ./src/app2:/var/www/html
+
+  app3:
+    build: .
+    container_name: app3
+    ports:
+      - 8890:80
+    volumes:
+      - ./src/app3:/var/www/html
+
+volumes:
+  db_volume:
+
